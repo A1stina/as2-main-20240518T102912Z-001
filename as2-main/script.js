@@ -50,7 +50,7 @@ ranMaze();
 ranMaze();
 ranMaze();
 
-//Populates the maze in the HTML
+
 for (let y of maze) {
   for (let x of y) {
     let block = document.createElement("div");
@@ -102,14 +102,14 @@ function checkPointsColli() {
   }
 }
 
-// Score Increment
+// INCREASE SCORE
 function increaseTheScore() {
   const countScore = document.querySelector(`.score p`);
   countScore.textContent = score;
-  // nexLevel();
+
 }
 
-//Player movement
+//PLAYER MOVEMENT
 function keyUp(event) {
   upPressed = false;
   downPressed = false;
@@ -139,7 +139,7 @@ function keyDown(event) {
   }
 }
 
-//Live
+//LIVES
 function createLives() {
   let livesList = document.createElement(`li`);
   let unorderedList = document.querySelector(`.lives ul`);
@@ -148,7 +148,8 @@ function createLives() {
 
 let pauseTheGame = false;
 let gameOver = false;
-//Track player movement and collision with player
+
+//PLAYER MOVEMENT AND COLLISION
 let collisionCheck = false;
 function isEnemyCollision() {
   const playerPosition = player.getBoundingClientRect();
@@ -211,8 +212,12 @@ function allPointsFinished() {
   return allPointsTaken.length === 0;
 }
 
+// GAME PAUSE
+function isGamePause() {
+  return pauseTheGame;
+}
 
-// REMOVE LIVES
+// LIVES REMOVE AFTER ENEMY COLISION
 function killLives() {
   const life = document.querySelector(".lives ul li");
   if (life) {
@@ -245,12 +250,11 @@ function gameOverMes() {
   }, 1);
 }
 
-//Interval for enemy, point
 setInterval(function () {
   if (pauseTheGame || gameOver) return;
   checkPointsColli();
   isEnemyCollision();
-
+  // moveEnemies();
 }, 100);
 
 const player = document.querySelector("#player");
@@ -338,15 +342,15 @@ setInterval(function () {
 }, 10);
 let gameStarted = false
 
-// START 
+// START
 const pressToStart = document.querySelector(".start");
 function startTheGame() {
   pressToStart.style.display = "none";
-
-  document.addEventListener("keydown", keyDown);
+ 
+      document.addEventListener("keydown", keyDown);
       document.addEventListener("keyup", keyUp);
-
-
+    
+    
       document.querySelector("#ubttn").addEventListener("mousedown", function () {
         upPressed = true;
       });
@@ -376,14 +380,20 @@ function startTheGame() {
       createLives();
       moveMyEnemy();
     
-    }
+  
+
+}
 
 let death;
 
+function music() {
+    death = new Audio("../death.wav");
+    death.play();
+}
 
 pressToStart.addEventListener("click", startTheGame);
 
-//LEADER BOARD
+//Leader Board
 function getUsername() {
   username = window.prompt(`Create a username:`);
 
@@ -427,7 +437,7 @@ function getFromLocalStorage() {
 }
 
 window.addEventListener("load", getFromLocalStorage);
-
+// localStorage.clear();
 
 function anyCollision(position, classes) {
   const classesElement = document.querySelectorAll(`.${classes}`);
